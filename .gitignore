@@ -43,3 +43,5 @@ htmlcov/
 dist/
 build/
 *.egg-info/ 
+
+uv.lock
