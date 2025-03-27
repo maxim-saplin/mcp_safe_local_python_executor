@@ -26,7 +26,7 @@ This package allows to expose the Python executor via MCP (Model Context Protoco
 ## Installation and Execution
 
 1. Install `uv` (e.h. `brew install uv` on macOS or use [official docs](https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_2))
-2. Clone the repo
+2. Clone the repo, change the directory `cd mcp_safe_local_python_executor`
 3. The server can be started via command line `uv run mcp_server.py`, venv will be created automatically, depedencies (smollagents, mcp) will be installed
 
 
