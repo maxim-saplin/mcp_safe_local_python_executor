@@ -10,7 +10,8 @@ import logging
 from typing import Dict, Any
 
 from mcp.server.fastmcp import FastMCP
-from executor import LocalPythonExecutor
+# from executor import LocalPythonExecutor
+from smolagents.local_python_executor import LocalPythonExecutor
 
 # Configure logging
 logging.basicConfig(
@@ -20,18 +21,14 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-# Initialize FastMCP server
 mcp = FastMCP("python-executor")
 
-
-# Initialize the Python executor with safe defaults
 executor = LocalPythonExecutor(additional_authorized_imports=[])
 
 
 @mcp.tool()
 async def run_python(
     code: str
-    # additional_imports: Optional[List[str]] = None
 ) -> Dict[str, Any]:
     """Execute Python code in a secure sandbox environment.
     
@@ -52,9 +49,10 @@ async def run_python(
     - operator
     
     Args:
-        code: The Python code to execute. Should be valid Python 3 code. The result must be stored in a variable called `result`. E.g.:
+        code: The Python code to execute. Must be valid Python 3 code. The result must be stored in a variable called `result`. E.g.:
         ```python
-        result = 2 + 2
+        import math
+        result = math.sqrt(16)
         ```
         
     Returns:
@@ -64,16 +62,7 @@ async def run_python(
     """
     logger.info(f"Executing Python code: {code}")
     
-    # # If additional imports are requested, create a new executor with those imports
-    # if additional_imports:
-
-    #     temp_executor = LocalPythonExecutor(additional_authorized_imports=all_imports)
-    #     result, logs = temp_executor(code)
-    # else:
-    #     # Use the default executor
-    #     result, logs = executor(code)
-    
-    result, logs = executor(code)
+    result, logs, _ = executor(code)
 
     response = {
         "result": result,

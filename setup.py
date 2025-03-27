@@ -27,5 +27,12 @@ setup(
     python_requires=">=3.10",
     install_requires=[
         "mcp[cli]>=1.5.0",
+        "smolagents"
     ],
+    extras_require={
+        "dev": [
+            "pytest>=7.0.0",
+            "pytest-asyncio>=0.21.0"
+        ]
+    },
 ) 

@@ -22,8 +22,8 @@ class TestMCPServer(unittest.TestCase):
         # Create a coroutine to call the run_python tool
         async def test_coroutine():
             # Test basic arithmetic
-            # result = await mcp_server.run_python("result = 2 + 2")
-            # self.assertEqual(result["result"], 4)
+            result = await mcp_server.run_python("result = 2 + 2")
+            self.assertEqual(result["result"], 4)
 
             # Test math module functionality
             result = await mcp_server.run_python("import math\nresult = math.sqrt(16)")
