@@ -56,32 +56,6 @@ print(f"Final answer: {result}")  # Output: 8
 
 ## Advanced Usage
 
-### Adding Custom Tools
-
-```python
-from local_executor import LocalPythonExecutor, Tool
-
-# Define a custom tool
-def multiply(a, b):
-    return a * b
-
-# Create a Tool instance
-multiply_tool = Tool(
-    name="multiply",
-    func=multiply,
-    description="Multiplies two numbers"
-)
-
-# Initialize executor with custom tools
-executor = LocalPythonExecutor(additional_authorized_imports=[])
-executor.send_tools({"multiply": multiply_tool})
-
-# Use the custom tool
-code = "result = multiply(4, 5)"
-result, logs, is_final_answer = executor(code)
-print(f"Result: {result}")  # Output: 20
-```
-
 ### Setting Variables
 
 ```python
@@ -98,7 +72,3 @@ code = "result = x + y"
 result, logs, is_final_answer = executor(code)
 print(f"Result: {result}")  # Output: 30
 ```
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 
