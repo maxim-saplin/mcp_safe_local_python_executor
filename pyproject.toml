@@ -3,7 +3,7 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mcp_local_python_executor"
+name = "mcp_safe_local_python_executor"
 version = "0.1.0"
 description = "MCP server exposing tool for a safe local Python code execution"
 readme = "README.md"
