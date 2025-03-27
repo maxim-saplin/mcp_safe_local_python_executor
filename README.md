@@ -68,7 +68,7 @@ Once configured, you can use prompts like:
 
 - "Calculate the factorial of 5 using Python"
 - "Create a list of prime numbers up to 100"
-- "Solve this equation: x^2 + 5x + 6 = 0"
+- "Solve this equation (use Python): x^2 + 5x + 6 = 0"
 
 
 ## Development
