@@ -5,11 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mcp_local_python_executor"
 version = "0.1.0"
-description = "A safe local Python code executor"
+description = "MCP server exposing tool for a safe local Python code execution"
 readme = "README.md"
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Maxim Saplin"}
 ]
+license = {text = "MIT"}
 requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -19,22 +20,21 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 dependencies = [
     "mcp[cli]>=1.5.0",
-    "smolagents",
+    "smolagents==1.12.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
 ]
 
 [project.urls]
 "Homepage" = "https://github.com/yourusername/local_executor"
 
-[tool.setuptools]
-packages = ["find"]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "pytest-asyncio>=0.21.0",
-] 
+[tool.setuptools.packages.find]
+where = ["."]

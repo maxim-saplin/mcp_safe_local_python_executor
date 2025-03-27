@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
 mcp = FastMCP("python-executor")
 
 executor = LocalPythonExecutor(additional_authorized_imports=[])
+executor.send_tools({})
 
 
 @mcp.tool()
@@ -33,7 +34,8 @@ async def run_python(
     """Execute Python code in a secure sandbox environment.
     
     This tool allows running simple Python code for calculations and data manipulations.
-    The execution environment is restricted for security purposes.
+    The execution environment is restricted for security purposes. Make sure you create a single file
+    that can be executed in one go and it returns a result.
 
     Default allowed imports:
     - math
