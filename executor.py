@@ -1,8 +1,9 @@
 import ast
 import builtins
 import logging
-import math
 from typing import Any, Callable, Dict, List, Optional, Tuple
+from functools import wraps
+from types import ModuleType, FunctionType, BuiltinFunctionType
 
 logger = logging.getLogger(__name__)
 
@@ -38,61 +39,6 @@ BASE_BUILTIN_MODULES = [
     "functools",
     "operator",
 ]
-
-BASE_PYTHON_TOOLS = {
-    "print": lambda *args: None,  # Custom print that does nothing
-    "isinstance": isinstance,
-    "range": range,
-    "float": float,
-    "int": int,
-    "bool": bool,
-    "str": str,
-    "set": set,
-    "list": list,
-    "dict": dict,
-    "tuple": tuple,
-    "round": round,
-    "ceil": math.ceil,
-    "floor": math.floor,
-    "log": math.log,
-    "exp": math.exp,
-    "sin": math.sin,
-    "cos": math.cos,
-    "tan": math.tan,
-    "asin": math.asin,
-    "acos": math.acos,
-    "atan": math.atan,
-    "atan2": math.atan2,
-    "degrees": math.degrees,
-    "radians": math.radians,
-    "pow": pow,
-    "sqrt": math.sqrt,
-    "len": len,
-    "sum": sum,
-    "max": max,
-    "min": min,
-    "abs": abs,
-    "enumerate": enumerate,
-    "zip": zip,
-    "reversed": reversed,
-    "sorted": sorted,
-    "all": all,
-    "any": any,
-    "map": map,
-    "filter": filter,
-    "ord": ord,
-    "chr": chr,
-    "next": next,
-    "iter": iter,
-    "divmod": divmod,
-    "callable": callable,
-    "getattr": getattr,
-    "hasattr": hasattr,
-    "setattr": setattr,
-    "issubclass": issubclass,
-    "type": type,
-    "complex": complex,
-}
 
 DANGEROUS_FUNCTIONS = [
     "builtins.compile",
@@ -146,11 +92,6 @@ class ReturnException(Exception):
         self.value = value
 
 
-class FinalAnswerException(Exception):
-    def __init__(self, value):
-        self.value = value
-
-
 def truncate_content(content: str, max_length: int = DEFAULT_MAX_LEN_OUTPUT) -> str:
     """Truncate content to a maximum length."""
     if len(content) <= max_length:
@@ -158,6 +99,7 @@ def truncate_content(content: str, max_length: int = DEFAULT_MAX_LEN_OUTPUT) -> 
     return content[:max_length] + "..."
 
 
+@safer_eval
 def evaluate_ast(
     expression: ast.AST,
     state: Dict[str, Any],
@@ -187,6 +129,31 @@ def evaluate_ast(
             f"Reached the max number of operations of {MAX_OPERATIONS}. Maybe there is an infinite loop somewhere in the code, or you're just asking too many calculations."
         )
     state["_operations_count"]["counter"] += 1
+
+    # Handle imports
+    if isinstance(expression, ast.Import):
+        for alias in expression.names:
+            if alias.name in authorized_imports:
+                module = __import__(alias.name)
+                state[alias.asname or alias.name] = module
+            else:
+                raise InterpreterError(
+                    f"Import of {alias.name} is not allowed. Authorized imports are: {str(authorized_imports)}"
+                )
+        return None
+    elif isinstance(expression, ast.ImportFrom):
+        if expression.module in authorized_imports:
+            module = __import__(expression.module, fromlist=[alias.name for alias in expression.names])
+            for alias in expression.names:
+                if hasattr(module, alias.name):
+                    state[alias.asname or alias.name] = getattr(module, alias.name)
+                else:
+                    raise InterpreterError(f"Module {expression.module} has no attribute {alias.name}")
+        else:
+            raise InterpreterError(
+                f"Import from {expression.module} is not allowed. Authorized imports are: {str(authorized_imports)}"
+            )
+        return None
 
     if isinstance(expression, ast.Constant):
         return expression.value
@@ -441,7 +408,7 @@ def evaluate_python_code(
             Maximum length of print outputs to keep.
 
     Returns:
-        Tuple[Any, str, bool]: The result of the code execution, the logs, and whether it was a final answer.
+        Tuple[Any, str]: The result of the code execution and the logs.
     """
     try:
         expression = ast.parse(code)
@@ -459,28 +426,13 @@ def evaluate_python_code(
     state["_print_outputs"] = PrintContainer()
     state["_operations_count"] = {"counter": 0}
 
-    if "final_answer" in static_tools:
-        previous_final_answer = static_tools["final_answer"]
-
-        def final_answer(answer):
-            raise FinalAnswerException(previous_final_answer(answer))
-
-        static_tools["final_answer"] = final_answer
-
     try:
         for node in expression.body:
             result = evaluate_ast(node, state, static_tools, authorized_imports)
         state["_print_outputs"].value = truncate_content(
             str(state["_print_outputs"]), max_length=max_print_outputs_length
         )
-        is_final_answer = False
-        return result, is_final_answer
-    except FinalAnswerException as e:
-        state["_print_outputs"].value = truncate_content(
-            str(state["_print_outputs"]), max_length=max_print_outputs_length
-        )
-        is_final_answer = True
-        return e.value, is_final_answer
+        return result, str(state["_print_outputs"])
     except Exception as e:
         state["_print_outputs"].value = truncate_content(
             str(state["_print_outputs"]), max_length=max_print_outputs_length
@@ -488,6 +440,45 @@ def evaluate_python_code(
         raise InterpreterError(
             f"Code execution failed at line '{ast.get_source_segment(code, node)}' due to: {type(e).__name__}: {e}"
         )
+
+def safer_eval(func: Callable):
+    """
+    Decorator to make the evaluation of a function safer by checking its return value.
+
+    Args:
+        func: Function to make safer.
+
+    Returns:
+        Callable: Safer function with return value check.
+    """
+
+    @wraps(func)
+    def _check_return(
+        expression,
+        state,
+        static_tools,
+        authorized_imports=BASE_BUILTIN_MODULES,
+    ):
+        result = func(expression, state, static_tools, authorized_imports=authorized_imports)
+        if "*" not in authorized_imports:
+            if isinstance(result, ModuleType):
+                if result.__name__ not in authorized_imports:
+                    raise InterpreterError(f"Forbidden access to module: {result.__name__}")
+            elif isinstance(result, dict) and result.get("__spec__"):
+                if result["__name__"] not in authorized_imports:
+                    raise InterpreterError(f"Forbidden access to module: {result['__name__']}")
+            elif isinstance(result, (FunctionType, BuiltinFunctionType)):
+                for qualified_function_name in DANGEROUS_FUNCTIONS:
+                    module_name, function_name = qualified_function_name.rsplit(".", 1)
+                    if (
+                        function_name not in static_tools
+                        and result.__name__ == function_name
+                        and result.__module__ == module_name
+                    ):
+                        raise InterpreterError(f"Forbidden access to function: {function_name}")
+        return result
+
+    return _check_return
 
 
 class LocalPythonExecutor:
@@ -515,7 +506,7 @@ class LocalPythonExecutor:
         self.authorized_imports = list(set(BASE_BUILTIN_MODULES) | set(self.additional_authorized_imports))
         self.static_tools = None
 
-    def __call__(self, code_action: str) -> Tuple[Any, str, bool]:
+    def __call__(self, code_action: str) -> Tuple[Any, str]:
         """
         Execute the given code.
 
@@ -524,17 +515,16 @@ class LocalPythonExecutor:
                 The Python code to execute.
 
         Returns:
-            Tuple[Any, str, bool]: The result of the code execution, the logs, and whether it was a final answer.
+            Tuple[Any, str]: The result of the code execution and the logs.
         """
-        output, is_final_answer = evaluate_python_code(
+        output, logs = evaluate_python_code(
             code_action,
             static_tools=self.static_tools,
             state=self.state,
             authorized_imports=self.authorized_imports,
             max_print_outputs_length=self.max_print_outputs_length,
         )
-        logs = str(self.state["_print_outputs"])
-        return output, logs, is_final_answer
+        return output, logs
 
     def send_variables(self, variables: dict):
         """

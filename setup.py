@@ -26,6 +26,6 @@ setup(
     ],
     python_requires=">=3.10",
     install_requires=[
-        # No external dependencies required as we only use Python standard library
+        "mcp[cli]>=1.5.0",
     ],
 ) 

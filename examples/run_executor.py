@@ -1,4 +1,8 @@
-from local_executor import LocalPythonExecutor
+# Add the parent directory to the path
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from executor import LocalPythonExecutor
 
 
 def main():
@@ -8,11 +12,10 @@ def main():
     # Example 1: Simple arithmetic
     print("\nExample 1: Simple arithmetic")
     code = "2 + 2"
-    result, logs, is_final_answer = executor(code)
+    result, logs = executor(code)
     print(f"Code: {code}")
     print(f"Result: {result}")
     print(f"Logs: {logs}")
-    print(f"Is final answer: {is_final_answer}")
 
     # Example 2: Using print statements
     print("\nExample 2: Using print statements")
@@ -21,11 +24,10 @@ x = 10
 y = 20
 result = x + y
 """
-    result, logs, is_final_answer = executor(code)
+    result, logs = executor(code)
     print(f"Code: {code}")
     print(f"Result: {result}")
     print(f"Logs: {logs}")
-    print(f"Is final answer: {is_final_answer}")
 
 
 if __name__ == "__main__":
