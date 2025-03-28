@@ -70,59 +70,19 @@ total
     assert logs == ""
 
 
-def run_smoke_tests():
-    """Run the smoke tests manually with output."""
-    # Initialize the executor
+def test_filesystem_access_fails():
+    """Test that filesystem access is blocked"""
+    print("\nTest: Filesystem access attempt")
+    code = """
+import os
+files = os.listdir('.')
+files
+"""
     executor = LocalPythonExecutor(additional_authorized_imports=[])
+    with pytest.raises(Exception) as exc_info:
+        executor(code)
+    assert 'InterpreterError: Import of os is not allowed' in str(exc_info.value)
 
-    # Test 1: Simple arithmetic
-    print("\nTest 1: Simple arithmetic")
-    code = "2 + 2"
-    result, logs, _ = executor(code)
-    print(f"Code: {code}")
-    print(f"Result: {result}")
-    print(f"Logs: {logs}")
-    print(f"Test passed: {result == 4}")
-
-    # Test 2: Variable assignment
-    print("\nTest 2: Variable assignment")
-    code = """
-x = 10
-y = 20
-result = x + y
-"""
-    result, logs, _ = executor(code)
-    print(f"Code: {code}")
-    print(f"Result: {result}")
-    print(f"Logs: {logs}")
-    print(f"Test passed: {result == 30}")
-
-    # Test 3: Expression result
-    print("\nTest 3: Expression result")
-    code = """
-x = 5
-x * 2
-"""
-    result, logs, _ = executor(code)
-    print(f"Code: {code}")
-    print(f"Result: {result}")
-    print(f"Logs: {logs}")
-    print(f"Test passed: {result == 10}")
-
-    # Test 4: Array operations
-    print("\nTest 4: Array operations")
-    code = """
-numbers = [1, 2, 3, 4, 5]
-total = 0
-for num in numbers:
-    total += num
-total
-"""
-    result, logs, _ = executor(code)
-    print(f"Code: {code}")
-    print(f"Result: {result}")
-    print(f"Logs: {logs}")
-    print(f"Test passed: {result == 15}")
 
 
 if __name__ == "__main__":
