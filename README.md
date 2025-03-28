@@ -26,7 +26,11 @@ In case of Claude Desktop this tool is an easy way to add alternative to ChatGPT
     - time
     - unicodedata
 
-`LocalPythonExecutor` provides a good balance between direct use of local Python environment (which is easier to set-up but dangerous) AND remote execution in Dokcer container or a VM/3rd party service. Read more [here](https://huggingface.co/docs/smolagents/en/tutorials/secure_code_execution#local-code-execution).
+`LocalPythonExecutor` provides a good balance between direct use of local Python environment (which is easier to set-up but dangerous) AND remote execution in Dokcer container or a VM/3rd party service. 
+
+>To add a first layer of security, code execution in smolagents is not performed by the vanilla Python interpreter. We have re-built a more secure LocalPythonExecutor from the ground up.
+
+Read more [here](https://huggingface.co/docs/smolagents/en/tutorials/secure_code_execution#local-code-execution).
 
 ## Installation and Execution
 
