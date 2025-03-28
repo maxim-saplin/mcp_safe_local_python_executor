@@ -27,7 +27,11 @@ In case of Claude Desktop this tool is an easy way to add alternative to ChatGPT
     - time
     - unicodedata
 
-`LocalPythonExecutor` provides a good balance between direct use of local Python environment (which is easier to set-up but dangerous) AND remote execution in Dokcer container or a VM/3rd party service. 
+## Security
+
+Be careful with execution of code produced by LLM on your machine, stay away from MCP servers that run Python via command line or using `eval()`. The safest option is using a VM or a docker container, though it requires some effort to set-up, take resources. There're 3rd party servcices providing Python runtime, though they require registration, API keys etc.
+
+`LocalPythonExecutor` provides a good balance between direct use of local Python environment (which is easier to set-up) AND remote execution in Dokcer container or a VM/3rd party service (which is safe). Hugginng Face team has invested time creating a quick answer safe option to run LLM generated code used by their code agents. This MCP server builds upon it:
 
 >To add a first layer of security, code execution in smolagents is not performed by the vanilla Python interpreter. We have re-built a more secure LocalPythonExecutor from the ground up.
 
