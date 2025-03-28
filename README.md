@@ -11,9 +11,9 @@ In case of Claude Desktop this tool is an easy way to add alternative to ChatGPT
 ## Features
 
 - Exposes `run_python` tool
-- Safer execution of Python code compared to direct use of Python
+- Safer execution of Python code compared to direct use of Python `eva()l`
 - Ran via uv in Python venv
-- Restricted list of imports
+- Restricted list of imports - no IO ops are allowed
     - collections
     - datetime
     - itertools
