@@ -29,7 +29,7 @@ In case of Claude Desktop this tool is an easy way to add a missing Code Interpr
 
 ## Security
 
-Be careful with execution of code produced by LLM on your machine, stay away from MCP servers that run Python via command line or using `eval()`. The safest option is using a VM or a docker container, though it requires some effort to set-up, take resources. There're 3rd party servcices providing Python runtime, though they require registration, API keys etc.
+Be careful with execution of code produced by LLM on your machine, stay away from MCP servers that run Python via command line or using `eval()`. The safest option is using a VM or a docker container, though it requires some effort to set-up, consumes resources/slower. There're 3rd party servcices providing Python runtime, though they require registration, API keys etc.
 
 `LocalPythonExecutor` provides a good balance between direct use of local Python environment (which is easier to set-up) AND remote execution in Dokcer container or a VM/3rd party service (which is safe). Hugginng Face team has invested time creating a quick answer safe option to run LLM generated code used by their code agents. This MCP server builds upon it:
 
