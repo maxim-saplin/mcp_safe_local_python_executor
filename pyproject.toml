@@ -34,7 +34,7 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/yourusername/local_executor"
+"Homepage" = "https://github.com/maxim-saplin/mcp_safe_local_python_executor/tree/main"
 
 [tool.setuptools.packages.find]
 where = ["."]
