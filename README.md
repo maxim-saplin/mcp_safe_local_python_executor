@@ -91,3 +91,9 @@ uv venv .venv
 uv sync --group dev
 python -m pytest tests/
 ```
+
+-----------------------
+
+<a href="https://glama.ai/mcp/servers/@maxim-saplin/mcp_safe_local_python_executor">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@maxim-saplin/mcp_safe_local_python_executor/badge" />
+</a>
