@@ -1,0 +1,38 @@
+Date : 2025-03-28 08:28:01
+Directory : /Users/admin/src/mcp_safe_local_python_executor
+Total : 9 files,  859 codes, 45 comments, 158 blanks, all 1062 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| Python           |          7 |        753 |         45 |        122 |        920 |
+| Markdown         |          1 |         99 |          0 |         36 |        135 |
+| pip requirements |          1 |          7 |          0 |          0 |          7 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                        | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                           |          9 |        859 |         45 |        158 |      1,062 |
+| . (Files)                                                                   |          5 |        677 |         13 |        110 |        800 |
+| examples                                                                    |          3 |        163 |         24 |         37 |        224 |
+| tests                                                                       |          1 |         19 |          8 |         11 |         38 |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                    | language         | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| /Users/admin/src/mcp_safe_local_python_executor/README.md                   | Markdown         |         99 |          0 |         36 |        135 |
+| /Users/admin/src/mcp_safe_local_python_executor/examples/run_executor.py    | Python           |         24 |          4 |          7 |         35 |
+| /Users/admin/src/mcp_safe_local_python_executor/examples/run_mcp_server.py  | Python           |         58 |          6 |         11 |         75 |
+| /Users/admin/src/mcp_safe_local_python_executor/examples/test_mcp_client.py | Python           |         81 |         14 |         19 |        114 |
+| /Users/admin/src/mcp_safe_local_python_executor/executor.py                 | Python           |        486 |          1 |         51 |        538 |
+| /Users/admin/src/mcp_safe_local_python_executor/mcp_server.py               | Python           |         56 |         12 |         21 |         89 |
+| /Users/admin/src/mcp_safe_local_python_executor/requirements.txt            | pip requirements |          7 |          0 |          0 |          7 |
+| /Users/admin/src/mcp_safe_local_python_executor/setup.py                    | Python           |         29 |          0 |          2 |         31 |
+| /Users/admin/src/mcp_safe_local_python_executor/tests/test_mcp_server.py    | Python           |         19 |          8 |         11 |         38 |
+| Total                                                                       |                  |        859 |         45 |        158 |      1,062 |
++-----------------------------------------------------------------------------+------------------+------------+------------+------------+------------+

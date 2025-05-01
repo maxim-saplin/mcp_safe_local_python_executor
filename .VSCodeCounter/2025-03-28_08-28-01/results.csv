@@ -1,0 +1,11 @@
+"filename", "language", "Python", "Markdown", "pip requirements", "comment", "blank", "total"
+"/Users/admin/src/mcp_safe_local_python_executor/README.md", "Markdown", 0, 99, 0, 0, 36, 135
+"/Users/admin/src/mcp_safe_local_python_executor/examples/run_executor.py", "Python", 24, 0, 0, 4, 7, 35
+"/Users/admin/src/mcp_safe_local_python_executor/examples/run_mcp_server.py", "Python", 58, 0, 0, 6, 11, 75
+"/Users/admin/src/mcp_safe_local_python_executor/examples/test_mcp_client.py", "Python", 81, 0, 0, 14, 19, 114
+"/Users/admin/src/mcp_safe_local_python_executor/executor.py", "Python", 486, 0, 0, 1, 51, 538
+"/Users/admin/src/mcp_safe_local_python_executor/mcp_server.py", "Python", 56, 0, 0, 12, 21, 89
+"/Users/admin/src/mcp_safe_local_python_executor/requirements.txt", "pip requirements", 0, 0, 7, 0, 0, 7
+"/Users/admin/src/mcp_safe_local_python_executor/setup.py", "Python", 29, 0, 0, 0, 2, 31
+"/Users/admin/src/mcp_safe_local_python_executor/tests/test_mcp_server.py", "Python", 19, 0, 0, 8, 11, 38
+"Total", "-", 753, 99, 7, 45, 158, 1062
