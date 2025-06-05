@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/maxim-saplin-mcp-safe-local-python-executor-badge.png)](https://mseep.ai/app/maxim-saplin-mcp-safe-local-python-executor)
+
 # Safe Local Python Executor
 
 An MCP server (stdio transport) that wraps Hugging Face's [`LocalPythonExecutor`](https://github.com/huggingface/smolagents/blob/main/src/smolagents/local_python_executor.py)
