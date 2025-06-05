@@ -1,6 +1,5 @@
 # Safe Local Python Executor
 [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=safe-local-python-executor&config=eyJjb21tYW5kIjoidXYgcnVuIG1jcF9zZXJ2ZXIucHkifQ%3D%3D)
-[![smithery badge](https://smithery.ai/badge/@maxim-saplin/mcp_safe_local_python_executor)](https://smithery.ai/server/@maxim-saplin/mcp_safe_local_python_executor)
 
 An MCP server (stdio transport) that wraps Hugging Face's [`LocalPythonExecutor`](https://github.com/huggingface/smolagents/blob/main/src/smolagents/local_python_executor.py)
 (from the [`smolagents`](https://huggingface.co/docs/smolagents/en/index) framework). It is a custom Python runtime that 
@@ -108,3 +107,5 @@ python -m pytest tests/
 <a href="https://glama.ai/mcp/servers/@maxim-saplin/mcp_safe_local_python_executor">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@maxim-saplin/mcp_safe_local_python_executor/badge" />
 </a>
+
+[![smithery badge](https://smithery.ai/badge/@maxim-saplin/mcp_safe_local_python_executor)](https://smithery.ai/server/@maxim-saplin/mcp_safe_local_python_executor)
