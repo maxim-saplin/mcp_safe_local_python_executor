@@ -1,5 +1,5 @@
 # Safe Local Python Executor
-
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=safe-local-python-executor&config=eyJjb21tYW5kIjoidXYgcnVuIG1jcF9zZXJ2ZXIucHkifQ%3D%3D)
 [![smithery badge](https://smithery.ai/badge/@maxim-saplin/mcp_safe_local_python_executor)](https://smithery.ai/server/@maxim-saplin/mcp_safe_local_python_executor)
 
 An MCP server (stdio transport) that wraps Hugging Face's [`LocalPythonExecutor`](https://github.com/huggingface/smolagents/blob/main/src/smolagents/local_python_executor.py)
