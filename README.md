@@ -39,6 +39,15 @@ Read more [here](https://huggingface.co/docs/smolagents/en/tutorials/secure_code
 
 ## Installation and Execution
 
+### Installing via Smithery
+
+To install Safe Local Python Executor for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@maxim-saplin/mcp_safe_local_python_executor):
+
+```bash
+npx -y @smithery/cli install @maxim-saplin/mcp_safe_local_python_executor --client claude
+```
+
+### Installing Manually
 1. Install `uv` (e.h. `brew install uv` on macOS or use [official docs](https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_2))
 2. Clone the repo, change the directory `cd mcp_safe_local_python_executor`
 3. The server can be started via command line `uv run mcp_server.py`, venv will be created automatically, depedencies (smollagents, mcp) will be installed
@@ -98,4 +107,7 @@ python -m pytest tests/
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@maxim-saplin/mcp_safe_local_python_executor/badge" />
 </a>
 
+[![smithery badge](https://smithery.ai/badge/@maxim-saplin/mcp_safe_local_python_executor)](https://smithery.ai/server/@maxim-saplin/mcp_safe_local_python_executor)
+
 [![MseeP.ai Security Assessment Badge](https://mseep.net/pr/maxim-saplin-mcp-safe-local-python-executor-badge.png)](https://mseep.ai/app/maxim-saplin-mcp-safe-local-python-executor)
+
