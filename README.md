@@ -108,3 +108,6 @@ python -m pytest tests/
 </a>
 
 [![smithery badge](https://smithery.ai/badge/@maxim-saplin/mcp_safe_local_python_executor)](https://smithery.ai/server/@maxim-saplin/mcp_safe_local_python_executor)
+
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/maxim-saplin-mcp-safe-local-python-executor-badge.png)](https://mseep.ai/app/maxim-saplin-mcp-safe-local-python-executor)
+
