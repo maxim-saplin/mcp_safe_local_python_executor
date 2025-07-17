@@ -1,5 +1,3 @@
-[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/maxim-saplin-mcp-safe-local-python-executor-badge.png)](https://mseep.ai/app/maxim-saplin-mcp-safe-local-python-executor)
-
 # Safe Local Python Executor
 
 An MCP server (stdio transport) that wraps Hugging Face's [`LocalPythonExecutor`](https://github.com/huggingface/smolagents/blob/main/src/smolagents/local_python_executor.py)
@@ -99,3 +97,5 @@ python -m pytest tests/
 <a href="https://glama.ai/mcp/servers/@maxim-saplin/mcp_safe_local_python_executor">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@maxim-saplin/mcp_safe_local_python_executor/badge" />
 </a>
+
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/maxim-saplin-mcp-safe-local-python-executor-badge.png)](https://mseep.ai/app/maxim-saplin-mcp-safe-local-python-executor)
